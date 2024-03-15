@@ -11,7 +11,7 @@ require_once('Lib/ProgramHeader.php3');
 require_once('Lib/class_Log.php3');
 require_once('Lib/class_fncResult.php3');
 
-ini_set("display_errors","on");
+ini_set("display_errors","on" );
 
 // Start Logging
 $l = new IntranetLog();
