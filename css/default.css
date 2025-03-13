@@ -1,0 +1,63 @@
+@charset "utf-8";
+.btn_red {
+	font-weight: bold;
+	background-color: #FFD4D4;
+}
+.btn_green {
+	font-weight: bold;
+	background-image: url(images/btn_green.jpg);
+	background-repeat: repeat;
+}
+#footer {
+	position: fixed;
+	height: 30px;
+	width: 98%;
+	bottom: 0px;
+	left: 50%;
+	margin-left: -49%;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	border: 1px solid #000000;
+	text-align: center;
+	font-weight: bolder;
+	font-size: x-large;
+	margin-top: 0px;
+	background-color: slategray;
+}
+#header {
+	position: relative;
+	height: 30px;
+	width: 98%;
+	top: 0px;
+	left: 50%;
+	margin-top: 25px;
+	margin-left: -49%;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border: 1px solid #000000;
+	text-align: center;
+	font-weight: bolder;
+	font-size: x-large;
+	background-color: slategray;
+	margin-bottom: 15px;
+}
+#main {
+	position:fixed;
+	margin-top: 25px;
+	width: 400px;
+	height: 200px;
+	left: 50%;
+	margin-left: -10%;
+}
+#main-content {
+}
+#main #var1Form #iform label{
+	font-size: xx-large;
+}
+#main #var1Form #iform input{
+	font-size: xx-large;
+}tr .field2 input {
+	font-size: xx-large;
+}

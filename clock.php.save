@@ -1,0 +1,177 @@
+<?php
+	require_once('Lib/detectMobile.php3');
+	
+	if (MOBILE == true) {
+		function pageFooter() {	echo '<div data-role="footer" data-position="fixed"><h1>TIMECLOCK &copy; 2015 SENVOY LLC</h1></div>'; }
+	}
+	require_once('Human_Resources/PDO_CONN_hr-rw.php3');
+	
+	$DB = new PDO(PDO_hr_CONN,PDO_hr_USER,PDO_hr_PASS);
+	$DB->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+	
+	if ($_SESSION['STC_Valid'] == false) {
+		$_SESSION['STC_Valid'] = false;
+		$_SESSION['STC_lname'] = null;
+		$_SESSION['STC_fname'] = null;
+		$_SESSION['STC_BadAttempt'] += 1;
+		
+		header("location:index.php");
+	}
+	
+	$_SESSION['STC_onClock'] = $_POST['onClock'];
+	$_SESSION['STC_onTime']  = $_POST['onTime'];
+	$_SESSION['STC_outTime'] = $_POST['outTime'];
+	$_SESSION['STC_lunch']   = $_POST['lunch'];
+	$_SESSION['STC_miles']   = $_POST['miles'];
+	$_SESSION['STC_Note']    = $_POST['Note'];
+	
+	
+?>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>SENVOY Time Clock</title>
+<style type="text/css">
+	#notice {
+		font-size: xx-large;
+		text-shadow: 0px 0px;
+		color: #FF0004;
+	}
+</style>
+<?php if (MOBILE == true) { ?>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/vader/jquery-ui.min.css" />
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
+	<script type="text/javascript" src="http://cdn.zoanmgtinc.com/j_query/ui/jquery-ui-timepicker.js"></script>
+	<script>
+		$().ready(function(e) {
+			$("#onClock").datepicker({
+				dateFormat: "yy-mm-dd",
+				showButtonPanel: true,
+				defaultDate: "<?= date('Y-m-d',strtotime('yesterday')); ?>"
+			});
+			
+			$('#onTime').timepicker({
+					// Options
+					timeSeparator: ':',           // The character to use to separate hours and minutes. (default: ':')
+					showLeadingZero: true,        // Define whether or not to show a leading zero for hours < 10. (default: true)
+					showMinutesLeadingZero: true, // Define whether or not to show a leading zero for minutes < 10. (default: true)
+					showPeriod: false,            // Define whether or not to show AM/PM with selected time. (default: false)
+					showPeriodLabels: true,       // Define if the AM/PM labels on the left are displayed. (default: true)
+					altField: '#alternate_input', // Define an alternate input to parse selected time to
+					defaultTime: '08:00',         // Define a default time to use if displayed inline or input is empty
+					zIndex: null,                 // Overwrite the default zIndex used by the time picker
+					
+					// trigger options
+					showOn: 'focus',              // Define when the timepicker is shown.
+																				// 'focus': when the input gets focus, 'button' when the button trigger element is clicked,
+																				// 'both': when the input gets focus and when the button is clicked.
+					button: null,                 // jQuery selector that acts as button trigger. ex: '#trigger_button'
+			
+					// Localization
+					hourText: 'Hour',             // Define the locale text for "Hours"
+					minuteText: 'Minute',         // Define the locale text for "Minute"
+					amPmText: ['AM', 'PM'],       // Define the locale text for periods
+			
+					// Events
+					//onSelect: onSelectCallback,   // Define a callback function when an hour / minutes is selected.
+					//onClose: onCloseCallback,     // Define a callback function when the timepicker is closed.
+					//onHourShow: onHourShow,       // Define a callback to enable / disable certain hours. ex: function onHourShow(hour)
+					//onMinuteShow: onMinuteShow    // Define a callback to enable / disable certain minutes. ex: function onMinuteShow(hour, minute)
+			});
+			$('#outTime').timepicker({
+					// Options
+					timeSeparator: ':',           // The character to use to separate hours and minutes. (default: ':')
+					showLeadingZero: true,        // Define whether or not to show a leading zero for hours < 10. (default: true)
+					showMinutesLeadingZero: true, // Define whether or not to show a leading zero for minutes < 10. (default: true)
+					showPeriod: false,            // Define whether or not to show AM/PM with selected time. (default: false)
+					showPeriodLabels: true,       // Define if the AM/PM labels on the left are displayed. (default: true)
+					altField: '#alternate_input', // Define an alternate input to parse selected time to
+					defaultTime: '08:00',         // Define a default time to use if displayed inline or input is empty
+					zIndex: null,                 // Overwrite the default zIndex used by the time picker
+					
+					// trigger options
+					showOn: 'focus',              // Define when the timepicker is shown.
+																				// 'focus': when the input gets focus, 'button' when the button trigger element is clicked,
+																				// 'both': when the input gets focus and when the button is clicked.
+					button: null,                 // jQuery selector that acts as button trigger. ex: '#trigger_button'
+			
+					// Localization
+					hourText: 'Hour',             // Define the locale text for "Hours"
+					minuteText: 'Minute',         // Define the locale text for "Minute"
+					amPmText: ['AM', 'PM'],       // Define the locale text for periods
+			
+					// Events
+					//onSelect: onSelectCallback,   // Define a callback function when an hour / minutes is selected.
+					//onClose: onCloseCallback,     // Define a callback function when the timepicker is closed.
+					//onHourShow: onHourShow,       // Define a callback to enable / disable certain hours. ex: function onHourShow(hour)
+					//onMinuteShow: onMinuteShow    // Define a callback to enable / disable certain minutes. ex: function onMinuteShow(hour, minute)
+			});
+			$("#radioLunch").buttonset();
+			$("#onClock").val("<?= date('Y-m-d',strtotime('yesterday')); ?>"); 
+			$("#onTime").val("08:00");
+			$("#outTime").val("17:00");
+
+		});
+	</script>
+<?		} ?>
+	<script src="function.js"></script>
+	<script>
+		function update_timeWorked() {
+			var clock_in = hhmm_to_min($("#onTime").val());
+			var clock_out = hhmm_to_min($("#outTime").val());
+			
+			if (clock_out > clock_in) { // Same Day
+				var totalMinutesWorked = clock_out - clock_in;
+			}
+			if (clock_in > clock_out) { // end is on the next day
+				var totalMinutesWorked = ((24 * 60) - clock_in) + clock_out;
+			}
+			
+			$("#TotalHours").val(min_to_hhmm(totalMinutesWorked));
+		}
+	</script>
+</head>
+<body>
+<?php if (MOBILE == true) { ?>
+<div data-role="page" id="homePage">
+		<div id="header-fineprint" data-role="header">
+<?php include("fineprint.html"); ?>
+		</div>
+	<form method="post" action="record.php" data-ajax="false">
+  <div data-role="main" class="ui-content">
+		<div id="boxOnClock"><label for="onClock">Date:</label><input name="onClock" type="text" id="onClock"></div>
+		<div id="boxOnTime"><label for="onTime">Clock In:</label><input name="onTime" type="text" id="onTime" style="z-index:100000;" onBlur="update_timeWorked();"></div>
+		<div id="boxOutTime"><label for="outTime">Clock Out:</label><input name="outTime" type="text" id="outTime"></div>
+		<div id="boxLunch">
+			<fieldset data-role="controlgroup" data-type="horizontal" style="z-index:0">
+				<legend style="z-index:0">Length of Lunch</legend>
+				<input type="radio" id="lunchNO" name="lunch" value=0 style="z-index:0"><label for="lunchNO" style="z-index:1">No Lunch</label>
+				<input type="radio" id="lunch30" name="lunch" value=30 style="z-index:0"><label for="lunch30" style="z-index:1">30 min</label>
+				<input type="radio" id="lunch60" name="lunch" value=60 checked="checked" style="z-index:0"><label for="lunch60" style="z-index:1">60 min</label>
+			</fieldset>
+		</div>
+		<div id="boxTotalHours"><label for="TotalHours">Total Hours:</label><input name="TotalHours" id="TotalHours" type="text" readonly></div>
+		<div id="boxMiles">
+			<label for="miles">Miles:</label><input name="miles" type="number" id="miles" maxlength="4" value="0" onFocus="this.select()">
+		</div>
+		<div id="boxNote">
+			<label for="Note">Note:</label>
+			<input type="text" name="Note" id="Note" maxlength="254" value="" data-clear-btn="true">
+		</div>
+		<div id="boxSubmit" class="ui-grid-a">
+			<div id="boxCancel" class="ui-block-a"><input type="reset" data-theme="c" value="Cancel" onClick="location='index.php'"></div>
+			<div id="boxRecord" class="ui-block-b"><input type="submit" data-theme="b" value="Record"></div>
+		</div>
+	</div>
+	</form>
+<?php pageFooter(); ?>
+	</div>
+<? } ?>
+</body>
+</html>
+

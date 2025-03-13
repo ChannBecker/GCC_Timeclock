@@ -1,0 +1,8 @@
+<div id="fineprint" style="color:#666666; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; text-align:center">
+	By completing and submitting this form, you are acknowledging that this is a truthful and accurate record of work performed by YOU, <span id="fineprintName" style="font-weight=bold; color=#018600"><?= (isset($_SESSION['STC_fname']) ? $_SESSION['STC_fname'] : ""). " ". (isset($_SESSION['STC_lname']) ? $_SESSION['STC_lname'] : ""); ?></span>,  the person identified by the ID and PIN number. In doing so, you understand that GC &amp; C Logistics intends to use this information to calculate your hours worked, wages and mileage for this pay period and you hereby represent that GC &amp; C Logistics is entitled to rely on your representations made herein in calculating your hours worked, wages and mileage. Any falsification of this information could result in suspension or termination of employment.<br>The IP Address of this connection is being recorded.
+</div>
+<?php if (TC_NOTICE_LOG == true) { ?>
+<div id="fineprintAcceptDiv" style="font-weight: bold; text-align: center">
+	<input id="fineprintAccept" type="checkbox" name="fineprintAccept" onChange="formON()">I have read and I understand the above statement
+</div>
+<?php } ?>
