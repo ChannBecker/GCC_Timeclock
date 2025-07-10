@@ -8,7 +8,7 @@ if ($_SESSION['tc_valid'] != 1) {
 
 require_once('Utility/HTMLMail/htmlMimeMail.php3');
 //require_once('Senvoy/class.EmailList.php3');
-require_once('gccl/lib/class_EmailList_v5.php3');
+//require_once('gccl/lib/class_EmailList_v5.php3');
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -17,9 +17,9 @@ require 'Utility/phpmailer/PHPMailer.php'; // Adjust the path
 require 'Utility/phpmailer/SMTP.php'; // Adjust the path
 
 $timeClockType = $_SESSION['tc_timeClockType'];
-$EML = new EmailList();
+//$EML = new EmailList();
 
-$mailTo = $EML->getAddresses('TCOTAlert');
+//$mailTo = $EML->getAddresses('TCOTAlert');
 
 // Destroy SESSION vars, copy is local memory until script ends.
 
@@ -143,7 +143,7 @@ try {
         $mail->AltBody = $message2;
     
         // Add an attachment
-        $mail->send();
+        //$mail->send();
         //echo "Email Sent"; sleep(10);
     } catch (Exception $e) {
         echo "<!-- Message could not be sent. Mailer Error: {$mail->ErrorInfo} -->\r\n";

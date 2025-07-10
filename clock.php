@@ -278,13 +278,13 @@ table tr .field2 {
 					<br><span class="hint">(must be at least 5 characters)</span>
 				</td>
 			<tr>
-				<td align="right" class="label2">
+<!--				<td align="right" class="label2">
 					<label for="miles">Miles:</label>
         </td>
-        <td align="left" class="field2">
+         <td align="left" class="field2">
           <input name="miles" type="number" id="miles" maxlength="4" value="0" onFocus="this.select()">
         </td>
-      </tr>
+ -->      </tr>
 <? if ($isDriver == true) { ?>
 			<tr>
 				<td align="right" class="label2">
@@ -293,7 +293,8 @@ table tr .field2 {
         <td align="left" class="field2">
           <select name="vehicle" id="vehicle" value="-1" onChange="checkVehicle();">
             <option value="-1">-- Select Vehicle --</option>
-            <option value="999">Truck</option>
+            <option value="1">Personal Vehicle</option>
+            <option value="2">Company Vehicle</option>
             <? foreach ($fleetVehicles->data as $k=>$d) { ?>
             <option value="<?= $d['vehicleID']; ?>"><?= $d['number']. " ". $d['description']; ?></option>
             <? } ?>

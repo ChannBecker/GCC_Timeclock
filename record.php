@@ -4,7 +4,7 @@ DEFINE("TC_NOTICE_LOG",false);
 //require_once('Lib/ProgramHeader.php3');
 require_once('Lib/functions.php3');
 require_once('Utility/HTMLMail/htmlMimeMail.php3');
-require_once('gccl/lib/class_EmailList_v5.php3');
+//require_once('gccl/lib/class_EmailList_v5.php3');
 require_once('Senvoy/class_SenvoyFleet.php3');
 require_once('GCCL/HumanResources/class_Human_Resources.php3');
 require_once('GCCL/DB/PDO_CONN_GCCL_hr.php3');
@@ -33,8 +33,8 @@ $sFL = new SenvoyFleet();
 
 
 // Load Email List
-  $EML = new EmailList();
-  $alertMail = $EML->GetAddresses('TCOTAlert');
+  //$EML = new EmailList();
+  //$alertMail = $EML->GetAddresses('TCOTAlert');
   //$alertMail = $EML->GetAddresses('testtest');
 
    $adminMail = array(
@@ -307,19 +307,6 @@ die('xx');
         $body = str_replace("{hours}",$_SESSION['STC_totalHours'],$body);
         $body = str_replace("{sched}",$emp['hire_hours'],$body);
 
-/*        
-		$mail = new htmlMimeMail5();
-		$mail->setTextEncoding(new EightBitEncoding());
-		$mail->setHTMLEncoding(new EightBitEncoding());
-		$mail->setFrom('Timeclock@senvoy.com');
-		$mail->setSubject('Overtime Violation'); //. trim($emp['employee_number']). " - ". $emp['fname']. " ". $emp['lname']);
-		$mail->setPriority('high');
-		$mail->setText($body);
-		$mail->setHTML($body);
-		$abc = $oTC->writeOTAlert($dataID);
-		//$mail->send($alertMail);
-        //$mail->send($adminMail);
-*/
     $mail = new PHPMailer(true);
 try {
     //Server settings
@@ -335,11 +322,11 @@ try {
     //Recipients
     $mail->setFrom('NoReply@senvoy.com', 'Do Not Reply');
 
-    foreach ($alertMail->data as $mk=>$md) {
-        echo $md['EMail']. "<br>";
-        $mail->addAddress($md['EMail']);
-    }
-//    $mail->addAddress('bwiggins@gccmgt.com'); // Add a recipient
+    //foreach ($alertMail->data as $mk=>$md) {
+    //    echo $md['EMail']. "<br>";
+    //    $mail->addAddress($md['EMail']);
+    //}
+    //    $mail->addAddress('bwiggins@gccmgt.com'); // Add a recipient
 
     // Content
     $mail->isHTML(true); // Set email format to HTML
@@ -347,7 +334,7 @@ try {
     $mail->Body = $body;
     $mail->AltBody = $body;
 
-    $mail->send();
+    //$mail->send();
     echo "email sent"; sleep(10);
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";

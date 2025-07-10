@@ -76,7 +76,7 @@ if ($mode == 'recordTCEntry') {
 	$retvar = array('result'=>false,'error'=>null,'data'=>null);
 	$recorded = false;
 
-	$timeClockType = $_SESSION['tc_timeClockType'];
+	$timeClockType = $_SESSION['tc_useClock'];
 	
 	if ($timeClockType == 2) {
 		$retvar = array('result'=>false,'data'=>array());

@@ -59,7 +59,10 @@ foreach ($_SESSION as $k=>$d) {
 	<?php include("fineprint.html"); ?>
 	</div>
 	<div id="main">
-		<form id="var1Form" method="post" action="validate.php" data-ajax="false">
+        <!--
+        Testing login to use pre_validate page. change action back to validate.php
+        -->
+		<form id="var1Form" method="post" action="pre_validate.php" data-ajax="false">
 			<div id="iform">
 				<label for="var1">I.D.:</label>
 				<input type="text" name="var1" id="var1" placeholder="I.D." maxlength="6" onBlur="validate('A',this);">

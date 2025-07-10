@@ -7,8 +7,8 @@ if ($_SESSION['tc_valid'] != 1) {
 	header("location:../index.php");
 }
 
-
-	$timeClockType = $_SESSION['tc_timeClockType'];
+    echo "<!-- <pre>". print_r($_SESSION,1). "</pre> -->\r\n";
+	$timeClockType = $_SESSION['tc_useClock'];
 	$yesterday = strtotime("yesterday");
 
 if ($timeClockType == 2) {
@@ -198,7 +198,7 @@ if ($timeClockType == 2) {
 	<div id="header-fineprint">
 	<?php include("fineprint.html"); ?>
 	</div>
-<?php if ($_SESSION['tc_timeClockType'] == 2) { // tag: 89, timeClockType = 2 ?>
+<?php if ($_SESSION['tc_useClock'] == 2) { // tag: 89, timeClockType = 2 ?>
 <table id="container" width="300" align="center" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 		<td class="label" colspan="2" align="center">Review Submission</td>

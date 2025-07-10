@@ -8,7 +8,7 @@ if ($_SESSION['tc_valid'] != 1) {
 	header("location:../index.php");
 }
 
-	$timeClockType = $_SESSION['tc_timeClockType'];
+	$timeClockType = $_SESSION['tc_useClock'];
 	$baseTime = time();
 	$aDay = (60*60*24);
 
@@ -47,7 +47,7 @@ $excludeDays = implode(",",$excludeDate);
 
 //echo "\r\n<!-- ". $excludeDays. "-->\r\n";
 
-//echo "<!-- <pre>". print_r($_SESSION,1). "</pre> -->\r\n";
+echo "<!-- <pre>". print_r($_SESSION,1). "</pre> -->\r\n";
 ?>
 <!doctype html>
 <html>
@@ -233,7 +233,7 @@ $excludeDays = implode(",",$excludeDate);
 	<div id="header-fineprint">
 	<?php include("fineprint.html"); ?>
 	</div>
-<?php if ($_SESSION['tc_timeClockType'] == 2) { // tag: 89, timeClockType = 2 ?>
+<?php if ($timeClockType == 2) { // tag: 89, timeClockType = 2 ?>
 <table id="container" width="300" align="center" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 		<td class="label" align="center">Date Worked</td>

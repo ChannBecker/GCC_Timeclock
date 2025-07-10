@@ -11,9 +11,14 @@ $DB = new PDO(PDO_GCCL_hr_CONN,PDO_GCCL_hr_USER,PDO_GCCL_hr_PASS);
 $DB->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION );
 $DB->setAttribute(pdo::ATTR_DEFAULT_FETCH_MODE,pdo::FETCH_ASSOC);
 
-	$username = (isset($_POST['var1']) ? $_POST['var1'] : null);
-	$password = (isset($_POST['var2']) ? $_POST['var2'] : null);
-	$_SESSION['STC_Valid'] = false;
+$password = ( isset($_SESSION['var2']) ? $_SESSION['var2'] : null );
+
+$username = ( isset($_SESSION['var1']) ? $_SESSION['var1'] : null );
+
+//$username = (isset($_POST['var1']) ? $_POST['var1'] : null);
+//$password = (isset($_POST['var2']) ? $_POST['var2'] : null);
+
+$_SESSION['STC_Valid'] = false;
 
     //die("<pre>". print_R($_POST,1). "</pre>");
   
